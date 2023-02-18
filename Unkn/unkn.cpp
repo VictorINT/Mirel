@@ -21,6 +21,16 @@ void drive(int M1Speed, int M2Speed)
     analogWrite(M2A, 0);
     analogWrite(M2B, 0);
   }
+  // clips the speed to maximum or minimum value
+  if (M1Speed > 255)
+    M1Speed = 255;
+  if (M2Speed > 255)
+    M2Speed = 255;
+  if (M1Speed < -254)
+    M1Speed = -254;
+  if (M2Speed < -254)
+    M2Speed = -254;
+  //
   if (M1Speed < 0)
   {
     M1Speed = -M1Speed;
