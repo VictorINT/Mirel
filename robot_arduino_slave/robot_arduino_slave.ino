@@ -21,18 +21,57 @@ void setup (void)
 void parse()
 {
   char mleft[5], mright[5];
-  // motor left string
-  mleft[0] = buff[0];
-  mleft[1] = buff[1];
-  mleft[2] = buff[2];
-  mleft[3] = '\0'; // terminator
-  // motor right string
-  mright[0] = buff[4];
-  mright[1] = buff[5];
-  mright[2] = buff[6];
-  mright[3] = '\0'; // terminator
-  motor_left = atoi(mleft);
-  motor_right = atoi(mright);
+  
+  if(buff[0] == '-'){
+    mleft[0] = buff[1];
+    mleft[1] = buff[2];
+    mleft[2] = buff[3];
+    mleft[3] = '\0'; // terminator
+    motor_left = atoi(mleft);
+    motor_left = -motor_left;
+    if(buff[4] == '-')
+    {    
+      mright[0] = buff[5];
+      mright[1] = buff[6];
+      mright[2] = buff[7];
+      mright[3] = '\0'; // terminator
+      motor_right = atoi(mright);
+      motor_right = -motor_right;
+    }
+    else
+    {
+      mright[0] = buff[4];
+      mright[1] = buff[5];
+      mright[2] = buff[6];
+      mright[3] = '\0'; // terminator
+      motor_right = atoi(mright);
+    }
+  }
+  else
+  {
+    mleft[0] = buff[0];
+    mleft[1] = buff[1];
+    mleft[2] = buff[2];
+    mleft[3] = '\0'; // terminator
+    motor_left = atoi(mleft);
+    if(buff[3] == '-')
+    {
+      mright[0] = buff[4];
+      mright[1] = buff[5];
+      mright[2] = buff[6];
+      mright[3] = '\0'; // terminator
+      motor_right = atoi(mright);
+      motor_right = -motor_right;
+    }
+    else
+    {
+      mright[0] = buff[3];
+      mright[1] = buff[4];
+      mright[2] = buff[5];
+      mright[3] = '\0'; // terminator
+      motor_right = atoi(mright);
+    }
+  }
 }
 
 void loop (void)
@@ -57,7 +96,7 @@ ISR (SPI_STC_vect)
   if (index <sizeof buff)
   {
     buff [index++] = c;
-    if (c == '\n'){     /* Check for newline character as end of msg */
+    if (c == 'n'){     /* Check for newline character as end of msg */
      receivedone = true;
     }
   }
