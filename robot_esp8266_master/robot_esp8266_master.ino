@@ -66,6 +66,7 @@ void handleRoot() {
 }
 
 bool check_buffer(){
+  if(global_buffer == "auton") return true;
   if(sizeof global_buffer > 50) return false;
   Serial.println(sizeof global_buffer);
   if(global_buffer[0] == '-')

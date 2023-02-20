@@ -7,8 +7,17 @@ volatile bool receivedone;  /* use reception complete flag */
 
 int motor_left = 0, motor_right = 0;
 
+const int trigPin = 8;
+const int echoPin = 7;
+
+long duration;
+int distance;
+
 void setup (void)
 {
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  
   init();
   Serial.begin (9600);
   SPCR |= bit(SPE);         /* Enable SPI */
@@ -20,8 +29,27 @@ void setup (void)
 
 void parse()
 {
+  Serial.println("parsed entered");
   char mleft[5], mright[5];
-  
+  char comparare [] = "auton";
+  if(strcmp(buff, comparare) == 1)
+  {
+      Serial.println("Entered detection function");
+      // Clears the trigPin
+      digitalWrite(trigPin, LOW);
+      delayMicroseconds(2);
+      // Sets the trigPin on HIGH state for 10 micro seconds
+      digitalWrite(trigPin, HIGH);
+      delayMicroseconds(10);
+      digitalWrite(trigPin, LOW);
+      // Reads the echoPin, returns the sound wave travel time in microseconds
+      duration = pulseIn(echoPin, HIGH);
+      // Calculating the distance
+      distance = duration * 0.034 / 2;
+      // Prints the distance on the Serial Monitor
+      Serial.print("Distance: ");
+      Serial.println(distance);
+  }
   if(buff[0] == '-'){
     mleft[0] = buff[1];
     mleft[1] = buff[2];
