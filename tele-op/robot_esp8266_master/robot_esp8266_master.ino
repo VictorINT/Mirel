@@ -26,7 +26,7 @@ void setup(void){
   SPI.begin();       
   Serial.println('\n');
 
-  wifiMulti.addAP("", "");   
+  wifiMulti.addAP(",", ".");   
 //  wifiMulti.addAP("ssid_from_AP_3", "your_password_for_AP_3");
 
   Serial.println("Connecting ...");

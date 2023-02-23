@@ -31,6 +31,7 @@ void parse()
 {
   Serial.println("parsed entered");
   char mleft[5], mright[5];
+<<<<<<< Updated upstream
   char comparare [] = "auton";
   if(strcmp(buff, comparare) == 1)
   {
@@ -50,6 +51,9 @@ void parse()
       Serial.print("Distance: ");
       Serial.println(distance);
   }
+=======
+  
+>>>>>>> Stashed changes
   if(buff[0] == '-'){
     mleft[0] = buff[1];
     mleft[1] = buff[2];
